@@ -24,19 +24,16 @@ document.getElementById('start').addEventListener('click', function () {
   });
 
 //Function to show questions
+
 function showQuestions() {
     document.getElementById('start-screen').classList.add('hide');
     document.getElementById('questions').classList.remove('hide');
 
     var questionTitleElement = document.getElementById('question-title');
     var choicesElement = document.getElementById('choices');
-
     var currentQuestion = questions[currentQuestionIndex];
-
     questionTitleElement.textContent = currentQuestion.question;
-
     choicesElement.innerHTML = '';
-
     currentQuestion.choices.forEach((choice, index) => {
         var choiceButton = document.createElement('button');
         choiceButton.textContent = choice;
@@ -53,7 +50,7 @@ function showQuestions() {
     });
   }
 
-  // Function to track correct answers
+// Function to track correct answers
 
 function checkAnswer(userChoice) {
     var currentQuestion = questions[currentQuestionIndex];
@@ -64,12 +61,42 @@ function checkAnswer(userChoice) {
     }
 }
 
+// Function to show end screen
+
   function showEndScreen() {
     clearInterval(timerInterval);
     document.getElementById('questions').classList.add('hide');
-    document.getElementById('end-screen').classList.remove('hide');
+    var endScreen = document.getElementById('end-screen');
+    endScreen.classList.remove('hide');
     document.getElementById('final-score').textContent = correctAnswers;
     document.getElementById('time').textContent = 0;
   }
 
+// Event listener for submit score button
 
+var submitButton = document.getElementById('submit');
+submitButton.addEventListener('click', function() {
+    var initials = document.getElementById('initials').value;
+
+    if (initials.trim() === '') {
+        alert('Please enter valid initials');
+        return;
+    }
+
+    var highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+    var scoreData = {
+        initials: initials,
+        score: correctAnswers,
+    };
+    highScores.push(scoreData);
+
+    //Sorting high-scores to fix order
+
+    highScores.sort(function (a,b) {
+        return b.score - a.score;
+    });
+ 
+    localStorage.setItem('highScores',JSON.stringify(highScores));
+
+    window.location.href = "highscores.html";
+});
