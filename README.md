@@ -6,9 +6,9 @@ This repository holds the code for the Module 6 Code Quiz Challenge, which invol
 
 The finished application is designed to run in the browser and features dynamically updated HTML and CSS.
 
-Link to live site: 
+Link to live site: https://dombrown95.github.io/Code-Quiz-Challenge/
 
-Image of live site:
+Image of live site: ![Alt text](image.png)
 
 # Usage
 
